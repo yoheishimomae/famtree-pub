@@ -1,0 +1,36 @@
+.FamPanel {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  background: rgba(255,255,255,0.9);
+  /* border: 2px solid #666; */
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+  text-align: left;
+  pointer-events: none;
+}
+
+.FamPanel-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 8px 0 0 0;
+}
+
+.FamPanel label {
+  font-size: 16px;
+  width: 50px;
+  font-weight: bold;
+}
+
+.FamPanel h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.FamPanel p {
+  font-size: 16px;
+  margin: 0;
+}
