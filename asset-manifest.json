@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.24bad604.css",
-    "main.js": "/static/js/main.f700bd0f.js",
-    "index.html": "/index.html",
-    "main.24bad604.css.map": "/static/css/main.24bad604.css.map",
-    "main.f700bd0f.js.map": "/static/js/main.f700bd0f.js.map"
+    "main.css": "/famtree-pub/static/css/main.24bad604.css",
+    "main.js": "/famtree-pub/static/js/main.f700bd0f.js",
+    "index.html": "/famtree-pub/index.html",
+    "main.24bad604.css.map": "/famtree-pub/static/css/main.24bad604.css.map",
+    "main.f700bd0f.js.map": "/famtree-pub/static/js/main.f700bd0f.js.map"
   },
   "entrypoints": [
     "static/css/main.24bad604.css",
