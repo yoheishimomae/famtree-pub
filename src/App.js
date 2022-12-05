@@ -7,7 +7,6 @@ import FamBranch from './branch/FamBranch';
 import FamPanel from './branch/FamPanel';
 import FamPill from './branch/FamPill';
 import FamData from './model/FamData';
-// import FamD3 from './graph/FamD3';
 import Button from './component/Button';
 import Tabs from './component/Tabs';
 
