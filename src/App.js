@@ -8,6 +8,7 @@ import FamPanel from './branch/FamPanel';
 import FamPill from './branch/FamPill';
 import FamData from './model/FamData';
 import Button from './component/Button';
+import Overlay from './component/Overlay';
 import Tabs from './component/Tabs';
 
 const URL_BASE = "https://docs.google.com/spreadsheets/d/e/_UID_/pub?gid=0&single=true&output=csv&v=" + new Date().valueOf();
@@ -30,7 +31,9 @@ class App extends Component {
       rotation: 0,
       branchIndex: 0,
       languageIndex: 0,
-      famPanel: null
+      famPanel: null,
+      hideOverlay: false,
+      removeOverlay: false
     };
     this.first = false;
     this.animation = null;
@@ -59,8 +62,6 @@ class App extends Component {
     fetch(URL)
     .then(response => response.text())
     .then((rawdata) => {
-      // console.log(rawdata);
-      // parse CSV
       console.log('data loaded')
       Papa.parse(rawdata, {
         header: true,
@@ -72,11 +73,14 @@ class App extends Component {
         },
       });
     })
-  }
 
-  // onTabChange(index) {
-  //   this.setState({tabIndex: index});
-  // }
+    setTimeout(function() {
+      self.setState({hideOverlay: true});
+      setTimeout(function() {
+        self.setState({removeOverlay: true});
+      }, 500);
+    }, 5000);
+  }
 
   onLanguageChange(index) {
     this.setState({languageIndex: index});
@@ -95,7 +99,6 @@ class App extends Component {
       let child = data[0].children[i];
       this.branchMap.push({label: child.NAME, counter: child.branchSize});
     }
-    // console.log(this.branchMap);
   }
 
   startRotation(r) {
@@ -136,6 +139,7 @@ class App extends Component {
     const famPanel = this.state.famPanel;
     const famBranchData = this.state.famData ? this.state.famData.getBranch(branchIndex) : null;
     const lgIndex = this.state.languageIndex;
+    const overlayClass = this.state.hideOverlay ? 'hidden' : '';
 
     return (
       <div className="App">
@@ -176,6 +180,9 @@ class App extends Component {
             </React.Fragment>
           :
             <p>Loading...</p>
+          }
+          {!this.state.removeOverlay &&
+            <Overlay className={overlayClass}>Please do not share this website or the information on this website with anyone.</Overlay>
           }
         </div>
       </div>

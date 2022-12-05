@@ -1,0 +1,20 @@
+.Overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(24,24,24,0.7);
+  backdrop-filter: blur(2px);
+  color: #fff;
+  font-size: 16px;
+  transition: opacity 0.5s;
+}
+
+.Overlay.hidden {
+  opacity: 0;
+}

@@ -127,7 +127,7 @@ class FamBranch extends Component {
         // ctx.setLineDash([4, 4]);
         ctx.strokeStyle = "#333";
 
-        if (branchIndex !== 0) {
+        if (branchIndex !== 1) {
           ctx.beginPath();
           ctx.moveTo(X, HEIGHT/2 - NODE_SPACE/2);
           ctx.lineTo(X, HEIGHT/2 - L/2 - NODE_SPACE/2);
@@ -140,7 +140,7 @@ class FamBranch extends Component {
           ctx.setLineDash([]);
         }
 
-        if (branchIndex !== 7) {
+        if (branchIndex !== 8) {
           ctx.beginPath();
           ctx.moveTo(X, HEIGHT/2 - NODE_SPACE/2);
           ctx.lineTo(X, HEIGHT/2 + L/2 -NODE_SPACE/2);
