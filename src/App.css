@@ -20,10 +20,17 @@ body {
 
 .Button-group {
   position: fixed;
-  right: 16px;
   bottom: 16px;
   display: flex;
   z-index: 99;
+}
+
+.Button-group.right {
+  right: 16px;
+}
+
+.Button-group.left {
+  left: 16px;
 }
 
 .Tab-group {

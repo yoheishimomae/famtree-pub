@@ -33,7 +33,8 @@ class App extends Component {
       languageIndex: 0,
       famPanel: null,
       hideOverlay: false,
-      removeOverlay: false
+      removeOverlay: false,
+      zoomedIn: false
     };
     this.first = false;
     this.animation = null;
@@ -44,6 +45,8 @@ class App extends Component {
     this.onBranchChange = this.onBranchChange.bind(this);
     this.rotateLeft = this.rotateLeft.bind(this);
     this.rotateRight = this.rotateRight.bind(this);
+    this.toggleZoom = this.toggleZoom.bind(this);
+    this.onScroll = this.onScroll.bind(this);
     this.startRotation = this.startRotation.bind(this);
     this.onUpdateFamPanel = this.onUpdateFamPanel.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
@@ -79,7 +82,7 @@ class App extends Component {
       setTimeout(function() {
         self.setState({removeOverlay: true});
       }, 500);
-    }, 5000);
+    }, 500);
   }
 
   onLanguageChange(index) {
@@ -104,13 +107,6 @@ class App extends Component {
   startRotation(r) {
     var self = this;
     const target = r;
-    // if (r <= 0) {
-    //   r += 360;
-    // }
-    // else if (r >= 360) {
-    //   r -= 360;
-    // }
-
     self.setState({rotation: r});
   }
 
@@ -128,6 +124,18 @@ class App extends Component {
     console.log('rotation set to', rot);
   }
 
+  toggleZoom() {
+    this.setState({zoomedIn: !this.state.zoomedIn});
+  }
+
+  onScroll(e) {
+    if (this.state.branchIndex === 0) {
+      let rot = this.state.rotation;
+      rot += e.deltaY * 0.25;
+      this.startRotation(rot)
+    }
+  }
+
   onUpdateFamPanel(e) {
     // console.log('update Fampanel', e);
     this.setState({famPanel: e});
@@ -140,9 +148,10 @@ class App extends Component {
     const famBranchData = this.state.famData ? this.state.famData.getBranch(branchIndex) : null;
     const lgIndex = this.state.languageIndex;
     const overlayClass = this.state.hideOverlay ? 'hidden' : '';
+    const zoomedIn = this.state.zoomedIn;
 
     return (
-      <div className="App">
+      <div className="App"  onWheel={(e) => this.onScroll(e)}>
         <div className="App-wrapper">
           {this.state.famData ?
             <React.Fragment>
@@ -154,10 +163,15 @@ class App extends Component {
               }
               {showOverview ?
                 <React.Fragment>
-                  <FamMap data={this.state.famData} rotation={this.state.rotation} language={lgIndex}/>
-                  <div className="Button-group">
+                  <FamMap data={this.state.famData} rotation={this.state.rotation} language={lgIndex} zoomedIn={this.state.zoomedIn}/>
+                  {/*
+                  <div className="Button-group right">
                     <Button onClick={this.rotateLeft}>Rotate left</Button>
                     <Button onClick={this.rotateRight}>Rotate right</Button>
+                  </div>
+                  */}
+                  <div className="Button-group right">
+                    <Button onClick={this.toggleZoom}>Zoom {zoomedIn ? "out" : "in"}</Button>
                   </div>
                 </React.Fragment>
               :

@@ -45,11 +45,12 @@ class FamMap extends Component {
   setupCanvas() {
     const canvas = this.canvas.current;
     const ctx = this.canvas.current.getContext('2d');
+    const scale = window.devicePixelRatio*1.5;
     canvas.style.width = WIDTH + "px";
     canvas.style.height = HEIGHT + "px";
-    canvas.width = WIDTH * window.devicePixelRatio;
-    canvas.height = HEIGHT * window.devicePixelRatio;
-    ctx.scale(window.devicePixelRatio,window.devicePixelRatio);
+    canvas.width = WIDTH * scale;
+    canvas.height = HEIGHT * scale;
+    ctx.scale(scale, scale);
   }
 
   updateCanvas() {
@@ -61,13 +62,20 @@ class FamMap extends Component {
     this.dotsQueue = [];
     this.textQueue = [];
 
+    const zoomedIn = this.props.zoomedIn;
+    const scale = zoomedIn ? 1.5 : 1;
+      // const canvas = this.canvas.current;
+
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    // ctx.scale(window.devicePixelRatio*scale,window.devicePixelRatio*scale);
 
     this.drawRings();
     this.mapChildren(famTree[0].children, 1);
 
     this.processDotsQueue();
     this.processTextQueue();
+    // ctx.scale(window.devicePixelRatio,window.devicePixelRatio);
+    // console.log(window.devicePixelRatio, scale)
   }
 
 
@@ -176,7 +184,7 @@ class FamMap extends Component {
     let offset = RAD*0.25;
 
     if (gen > 2 && item.parent && !item.parent.parent) {
-      console.log(item.NAME);
+      // console.log(item.NAME);
       offset = RAD*0.1;
     }
     let x1 = c[0] + Math.cos(pr)*(RADG-offset);
@@ -326,12 +334,14 @@ class FamMap extends Component {
   render() {
     const husband = this.props.data.getFamilyTree()[0];
     const wife = husband.partners[0];
+    const zoomedIn = this.props.zoomedIn;
+    const wrapClass = zoomedIn ? " shift" : " ";
 
     const style = {
       transform: "rotate(" + this.props.rotation + "deg)"
     }
     return (
-      <div className="FamMap-wrap">
+      <div className={"FamMap-wrap" + wrapClass}>
         <canvas className="FamMap-canvas" ref={this.canvas} width={WIDTH} height={HEIGHT} style={style}/>
         <div className="FamMap-origin-group">
           <div className="FamMap-origin">{husband.NAME}<br/>{husband.SURNAME}</div>

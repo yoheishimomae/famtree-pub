@@ -9,6 +9,14 @@
   right: 0;
   bottom: 0;
   overflow: hidden;
+  transition: left 0.5s, transform 0.5s, margin 0.5s;
+  transform: scale(1);
+}
+
+.FamMap-wrap.shift {
+  left: -50%;
+  margin-left: -240px;
+  transform: scale(1.4);
 }
 
 .FamMap-canvas {
