@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/famtree-pub/static/css/main.24bad604.css",
-    "main.js": "/famtree-pub/static/js/main.f700bd0f.js",
+    "main.css": "/famtree-pub/static/css/main.92244ac5.css",
+    "main.js": "/famtree-pub/static/js/main.bbf7697b.js",
     "index.html": "/famtree-pub/index.html",
-    "main.24bad604.css.map": "/famtree-pub/static/css/main.24bad604.css.map",
-    "main.f700bd0f.js.map": "/famtree-pub/static/js/main.f700bd0f.js.map"
+    "main.92244ac5.css.map": "/famtree-pub/static/css/main.92244ac5.css.map",
+    "main.bbf7697b.js.map": "/famtree-pub/static/js/main.bbf7697b.js.map"
   },
   "entrypoints": [
-    "static/css/main.24bad604.css",
-    "static/js/main.f700bd0f.js"
+    "static/css/main.92244ac5.css",
+    "static/js/main.bbf7697b.js"
   ]
 }
