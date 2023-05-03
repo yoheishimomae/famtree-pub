@@ -76,13 +76,14 @@ class App extends Component {
         },
       });
     })
+    const timer = window.location.href.indexOf("localhost") > -1 ? 500 : 5000;
 
     setTimeout(function() {
       self.setState({hideOverlay: true});
       setTimeout(function() {
         self.setState({removeOverlay: true});
       }, 500);
-    }, 500);
+    }, timer);
   }
 
   onLanguageChange(index) {
