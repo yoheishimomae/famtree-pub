@@ -41,6 +41,17 @@ class FamPanel extends Component {
     let death = D ? (D.length > 4 ? formatDate(D) : D) : null;
     const deathLoc = item.DEATH_PLACE;
 
+    let name = item.FULL_NAME;
+
+    if (!name || name.length === 0) {
+      if (this.props.surnameFirst) {
+        name = item.SURNAME + item.NAME;
+      }
+      else {
+        name = item.NAME + ' ' + item.SURNAME;
+      }
+    }
+
     if (born && death) {
       const diff = new Date(D).getTime() - new Date(B).getTime();
       const year = new Date(diff).getUTCFullYear();
@@ -51,7 +62,7 @@ class FamPanel extends Component {
 
     return (
       <div className="FamPanel">
-        <h2>{item.FULL_NAME}</h2>
+        <h2>{name}</h2>
         {nameJP &&
           <p>{nameJP}</p>
         }

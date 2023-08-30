@@ -22,7 +22,14 @@ class FamPill extends Component {
 
     const h = item.BORN ? -22 : -10;
 
-    let name = item.NAME + ' ' + item.SURNAME;
+    let name;
+
+    if (this.props.surnameFirst) {
+      name = item.SURNAME + item.NAME;
+    }
+    else {
+      name = item.NAME + ' ' + item.SURNAME;
+    }
 
     if (this.props.language === 1) {
       if (item.JAPANESE_NAME) {

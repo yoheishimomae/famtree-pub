@@ -39,6 +39,7 @@ class App extends Component {
     this.first = false;
     this.animation = null;
     this.rotationTarget = 0;
+    this.surnameFirst = false;
     this.branchMap = [{label:"Overview"}];
 
     // this.onTabChange = this.onTabChange.bind(this);
@@ -60,8 +61,9 @@ class App extends Component {
     const queryString = window.location.search;
     const params = new URLSearchParams(queryString);
     const URL = URL_BASE.replace('_UID_', params.get('id'));
+    this.surnameFirst = params.get('surnameFirst') === "TRUE";
 
-    console.log('init');
+    console.log('init', 'surnameFirst', this.surnameFirst);
     fetch(URL)
     .then(response => response.text())
     .then((rawdata) => {
@@ -101,7 +103,8 @@ class App extends Component {
 
     for (let i = 0; i < data[0].children.length; i++) {
       let child = data[0].children[i];
-      this.branchMap.push({label: child.NAME, counter: child.branchSize});
+      let label = this.surnameFirst ? child.SURNAME + child.NAME : child.NAME;
+      this.branchMap.push({label: label, counter: child.branchSize});
     }
   }
 
@@ -150,6 +153,7 @@ class App extends Component {
     const lgIndex = this.state.languageIndex;
     const overlayClass = this.state.hideOverlay ? 'hidden' : '';
     const zoomedIn = this.state.zoomedIn;
+    const surnameFirst = this.surnameFirst;
 
     return (
       <div className="App"  onWheel={(e) => this.onScroll(e)}>
@@ -164,7 +168,7 @@ class App extends Component {
               }
               {showOverview ?
                 <React.Fragment>
-                  <FamMap data={this.state.famData} rotation={this.state.rotation} language={lgIndex} zoomedIn={this.state.zoomedIn}/>
+                  <FamMap data={this.state.famData} rotation={this.state.rotation} language={lgIndex} zoomedIn={this.state.zoomedIn} surnameFirst={surnameFirst}/>
                   {/*
                   <div className="Button-group right">
                     <Button onClick={this.rotateLeft}>Rotate left</Button>
@@ -179,16 +183,16 @@ class App extends Component {
                 <React.Fragment>
                   <div className="FamBranch-wrap">
                     <div className="FamBranch-inner-wrap">
-                    <FamBranch data={famBranchData.lines} branchIndex={this.state.branchIndex} rings={this.state.famData.getGenMax()}/>
+                    <FamBranch data={famBranchData.lines} branchIndex={this.state.branchIndex} rings={this.state.famData.getGenMax()} surnameFirst={surnameFirst}/>
                       {famBranchData.texts.map((item, index) =>{
                         return (
-                          <FamPill key={index} data={item.item} x={item.x} y={item.y} onUpdate={this.onUpdateFamPanel} selected={famPanel && famPanel.id} language={lgIndex}/>
+                          <FamPill key={index} data={item.item} x={item.x} y={item.y} onUpdate={this.onUpdateFamPanel} selected={famPanel && famPanel.id} language={lgIndex} surnameFirst={surnameFirst}/>
                         );
                       })}
                     </div>
                   </div>
                   {famPanel &&
-                    <FamPanel data={famPanel}/>
+                    <FamPanel data={famPanel} surnameFirst={surnameFirst}/>
                   }
                 </React.Fragment>
               }

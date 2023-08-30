@@ -222,12 +222,18 @@ class FamMap extends Component {
     ctx.stroke();
     ctx.setLineDash([]);
 
-    let text = item.NAME + ' ' + item.SURNAME;// + '(' + item.sibSize + ')';
+    let text;
 
-    if (this.props.language === 1) {
+    if (this.props.surnameFirst) {
+      text = item.SURNAME + item.NAME;
+    }
+    else if (this.props.language === 1) {
       if (item.JAPANESE_NAME) {
         text = item.JAPANESE_NAME;
       }
+    }
+    else {
+      text = item.NAME + ' ' + item.SURNAME;
     }
 
     this.dotsQueue.push({x:x2, y:y2, r:s/2, isEx:isEx});
@@ -344,9 +350,19 @@ class FamMap extends Component {
       <div className={"FamMap-wrap" + wrapClass}>
         <canvas className="FamMap-canvas" ref={this.canvas} width={WIDTH} height={HEIGHT} style={style}/>
         <div className="FamMap-origin-group">
-          <div className="FamMap-origin">{husband.NAME}<br/>{husband.SURNAME}</div>
-          <div className="FamMap-origin-spacer"></div>
-          <div className="FamMap-origin">{wife.NAME}<br/>{wife.SURNAME}</div>
+          {this.props.surnameFirst ?
+            <React.Fragment>
+              <div className="FamMap-origin" style={{height:"auto"}}>{husband.SURNAME}{husband.NAME}</div>
+              <div className="FamMap-origin-spacer"></div>
+              <div className="FamMap-origin" style={{height:"auto"}}>{wife.SURNAME}{wife.NAME}</div>
+            </React.Fragment>
+          :
+            <React.Fragment>
+              <div className="FamMap-origin">{husband.NAME}<br/>{husband.SURNAME}</div>
+              <div className="FamMap-origin-spacer"></div>
+              <div className="FamMap-origin">{wife.NAME}<br/>{wife.SURNAME}</div>
+            </React.Fragment>
+          }
         </div>
       </div>
     );
