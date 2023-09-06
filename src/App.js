@@ -62,8 +62,8 @@ class App extends Component {
     const queryString = window.location.search;
     const params = new URLSearchParams(queryString);
     const URL = URL_BASE.replace('_UID_', params.get('id'));
-    this.surnameFirst = params.get('surnameFirst') === "TRUE";
-    this.simplify = params.get('simplify') === "TRUE";
+    this.surnameFirst = params.get('surnameFirst') && params.get('surnameFirst').toLowerCase() === "true";
+    this.simplify = params.get('simplify') && params.get('surnameFirst').toLowerCase() === "true";
 
     console.log('init', 'surnameFirst', this.surnameFirst, 'simplify', this.simplify);
 
