@@ -40,6 +40,7 @@ class App extends Component {
     this.animation = null;
     this.rotationTarget = 0;
     this.surnameFirst = false;
+    this.simplify = false;
     this.branchMap = [{label:"Overview"}];
 
     // this.onTabChange = this.onTabChange.bind(this);
@@ -62,8 +63,10 @@ class App extends Component {
     const params = new URLSearchParams(queryString);
     const URL = URL_BASE.replace('_UID_', params.get('id'));
     this.surnameFirst = params.get('surnameFirst') === "TRUE";
+    this.simplify = params.get('simplify') === "TRUE";
 
-    console.log('init', 'surnameFirst', this.surnameFirst);
+    console.log('init', 'surnameFirst', this.surnameFirst, 'simplify', this.simplify);
+
     fetch(URL)
     .then(response => response.text())
     .then((rawdata) => {
@@ -168,7 +171,7 @@ class App extends Component {
               }
               {showOverview ?
                 <React.Fragment>
-                  <FamMap data={this.state.famData} rotation={this.state.rotation} language={lgIndex} zoomedIn={this.state.zoomedIn} surnameFirst={surnameFirst}/>
+                  <FamMap data={this.state.famData} rotation={this.state.rotation} language={lgIndex} zoomedIn={this.state.zoomedIn} surnameFirst={surnameFirst} simplify={this.simplify}/>
                   {/*
                   <div className="Button-group right">
                     <Button onClick={this.rotateLeft}>Rotate left</Button>

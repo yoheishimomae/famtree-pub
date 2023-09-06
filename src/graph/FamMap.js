@@ -124,7 +124,7 @@ class FamMap extends Component {
         }
       }
 
-      if (gen > 2) {
+      if (gen > (this.props.simplify ? 1 : 2)) {
         let sp = SIBLING_RAD;
         let ptr = Math.asin(sp/RADG);
         let offset = (child.sibSize)/2;
@@ -278,13 +278,14 @@ class FamMap extends Component {
   processTextQueue() {
     const ctx = this.canvas.current.getContext('2d');
     const c = [WIDTH/2, HEIGHT/2];
+    const font = this.props.surnameFirst ? '12px sans-serif' : '10px sans-serif';
     let r0 = 0;
 
     ctx.translate(c[0], c[1]);
 
     for (let item of this.textQueue) {
       const r1 = item.r - r0;
-      ctx.font = '10px sans-serif';
+      ctx.font = font;
       ctx.rotate(r1, c[0], c[1]);
       // ctx.rotate(item.r, c[0], c[1]);
       let txtSize = ctx.measureText(item.text);
